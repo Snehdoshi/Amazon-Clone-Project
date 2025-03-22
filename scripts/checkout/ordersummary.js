@@ -2,6 +2,7 @@ import { cart, removeFromCart, upadateDeliveryOption } from '../../data/cart.js'
 import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import {deliveryOptions , getDeliveryOption} from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentsummary.js';
 
 
 
@@ -119,6 +120,8 @@ export function renderOrderSummary (){
           } else {
             console.error(`Container for product ID ${productId} not found.`);
           }
+
+          renderPaymentSummary(); 
         });
       });
 
@@ -127,6 +130,7 @@ export function renderOrderSummary (){
           const {productId , deliveryOptionId } = element.dataset;
           upadateDeliveryOption(productId , deliveryOptionId);
           renderOrderSummary(); 
+          renderPaymentSummary();
         })
       });
 }
