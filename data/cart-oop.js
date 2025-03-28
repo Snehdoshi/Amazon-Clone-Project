@@ -78,7 +78,7 @@
  } 
 
  const cart = Cart('cart-oop');
- const businessCart = Cart('cart-business');
+ const businessCart = Cart('cart-business ');
 
 
 
