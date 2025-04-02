@@ -1,122 +1,120 @@
-import {formatCurrency} from '../scripts/utils/money.js';
+import { formatCurrency } from '../scripts/utils/money.js';
 
-export function getProduct (productId){
+export function getProduct(productId) {
   let matchingProduct;
-      
-        products.forEach((product) => {
-          if(product.id === productId){
-            matchingProduct = product;
-          }
-        });       
 
-        return matchingProduct;
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
+    }
+  });
+
+  return matchingProduct;
 }
 
-  class Product {
-    id;
-    image;
-    name;
-    rating;
-    priceCents;
-    keywords;
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  keywords;
 
-
-    constructor(productDetails){
-      this.id = productDetails.id;
-      this.image = productDetails.image;
-      this.name = productDetails.name;
-      this.rating = productDetails.rating;
-      this.priceCents = productDetails.priceCents;
-      this.keywords = productDetails.keywords;
-    }
-
-
-    getStarsUrl(){
-       return `images/ratings/rating-${this.rating.stars * 10}.png`;
-
-    }
-    getPrice(){
-      return `$${formatCurrency(this.priceCents)}`;
-    }
-
-    extraInfoHTML(){
-      return '';
-    }
-
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
 
-  class Clothing extends Product {
-    sizeChartLink;
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
+  }
 
-    constructor(productDetails){
-      super(productDetails);
-      this.sizeChartLink = productDetails.sizeChartLink;
-    }
+  extraInfoHTML() {
+    return '';
+  }
+}
 
-    extraInfoHTML() {
-      return `
-        <a href="${this.sizeChartLink}" target="_blank">
-         Size Chart 
-         </a>
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML() {
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+       Size Chart 
+       </a>
+    `;
+  }
+}
+
+class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+
+  extraInfoHTML() {
+   
+      console.log(`Generating extra info for: ${this.name}`);
+      console.log('Instructions Link:', this.instructionsLink);
+      console.log('Warranty Link:', this.warrantyLink);
+      
+      return ` 
+        <a href="${this.instructionsLink}" target="_blank">Instructions</a>
+        <a href="${this.warrantyLink}" target="_blank">Warranty</a>
       `;
     }
+    
   }
-  
-/*
-  const date = new Date();  
-  console.log(date);
-  console.log(date.toLocaleTimeString());
-*/
 
 
 export let products = [];
 
-export function loadProductsFetch () {
-  const promise = fetch(
-    'https://supersimplebackend.dev/products'
-  ).then((response) => {
-    return response.json()
-  }).then((productsData) => {
-    products = productsData.map((productDetails) => {
-
-      if(productDetails.type === 'clothing'){
-        return new Clothing(productDetails); 
-      }
-      return new Product (productDetails);
-      
-    });
-  }).catch((error) => {
-    console.log('Unexpected Error. Please Try again Later.');
-  });
-  return promise;
-}
-/*
-loadProductsFetch().then(() => {
-  console.log('Next Step');
-});
-*/
-export function loadProducts (func){
+export function loadProducts(func) {
   const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load' , () => {
-   products = JSON.parse( xhr.response).map((productDetails) => {
+  xhr.addEventListener('load', () => {
+    const productsData = JSON.parse(xhr.response);
 
-    if(productDetails.type === 'clothing'){
-      return new Clothing(productDetails); 
-    }
-    return new Product (productDetails);
     
+
+    products = productsData.map((productDetails) => {
+      
+
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    func();
   });
 
-  func();
-  });
-
-  xhr.addEventListener('error' , (error) => {
+  xhr.addEventListener('error', () => {
     console.log('Unexpected Error. Please Try again Later.');
   });
 
-  xhr.open('GET' , 'https://supersimplebackend.dev/products');
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
+
+
 
 
 /*
@@ -180,7 +178,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'appliance' ,
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -365,7 +366,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: 'appliance' ,
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -670,7 +674,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'appliance' ,
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -730,7 +737,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'appliance' ,
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -780,10 +790,11 @@ export const products = [
     ]
   }
 ].map((productDetails) => {
-
-  if(productDetails.type === 'clothing'){
-    return new Clothing(productDetails); 
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+  } else if (productDetails.type === 'appliance') {
+    return new Appliance(productDetails);
   }
-  return new Product (productDetails);
+  return new Product(productDetails);
 });
 */
