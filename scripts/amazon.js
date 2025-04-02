@@ -1,4 +1,4 @@
-import { cart} from '../data/cart-class.js';
+import { cart, addToCart } from '../data/cart.js';
 import { products, loadProducts } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -55,7 +55,7 @@ function renderProductsGrid() {
         </div>
 
         <div class="product-quantity-container">
-          <select>
+        <select class="js-quantity-selector-${product.id}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -90,7 +90,7 @@ function renderProductsGrid() {
 
   function updateCartQuantity() {
     let cartQuantity = 0;
-    cart.cartItems.forEach((cartItem) => {
+    cart.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
     });
 
@@ -101,10 +101,17 @@ function renderProductsGrid() {
     .forEach((button) => {
       button.addEventListener('click', () => {
         const productId = button.dataset.productId;
-        cart.addToCart(productId);
+        const quantitySelector = document.querySelector(
+          `.js-quantity-selector-${productId}`
+        );
+        const quantity = Number(quantitySelector.value); 
+        addToCart(productId , quantity);
         updateCartQuantity();
       });
+      
     });
+
+   
     
   document.querySelector('.js-search-bar')
     .addEventListener('keydown' , (event) => {
