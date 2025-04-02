@@ -18,6 +18,7 @@ export function getProduct (productId){
     name;
     rating;
     priceCents;
+    keywords;
 
 
     constructor(productDetails){
@@ -26,6 +27,7 @@ export function getProduct (productId){
       this.name = productDetails.name;
       this.rating = productDetails.rating;
       this.priceCents = productDetails.priceCents;
+      this.keywords = productDetails.keywords;
     }
 
 
@@ -83,7 +85,6 @@ export function loadProductsFetch () {
       return new Product (productDetails);
       
     });
-    console.log('load products');
   }).catch((error) => {
     console.log('Unexpected Error. Please Try again Later.');
   });
@@ -105,7 +106,7 @@ export function loadProducts (func){
     return new Product (productDetails);
     
   });
-  console.log('load products');
+
   func();
   });
 

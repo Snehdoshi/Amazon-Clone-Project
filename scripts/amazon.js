@@ -1,17 +1,42 @@
-import {cart, addToCart} from '../data/cart.js';
-import {products , loadProducts} from '../data/products.js';
-import {formatCurrency} from './utils/money.js';
+import { cart, addToCart } from '../data/cart.js';
+import { products, loadProducts } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';
 
-  loadProducts(renderProductsGrid);
-function renderProductsGrid () { 
+loadProducts(renderProductsGrid);
+
+function renderProductsGrid() { 
   let productsHTML = '';
 
-  products.forEach((product) => {
+  const url = new URL(window.location.href);
+  const search = url.searchParams.get('search');
+
+  let filteredProducts = products;
+
+  if (search) {
+    filteredProducts = products.filter((product) => {
+      const lowerCaseSearch = search.toLowerCase();
+  
+      let matchingKeyword = false;
+  
+      product.keywords.forEach((keyword) => {
+        const words = keyword.toLowerCase().split(' ');
+        if (words.includes(lowerCaseSearch)) {
+          matchingKeyword = true;
+        }
+      });
+  
+      const nameWords = product.name.toLowerCase().split(' ');
+  
+      return matchingKeyword || nameWords.includes(lowerCaseSearch);
+    });
+  }
+  
+
+  filteredProducts.forEach((product) => {
     productsHTML += `
       <div class="product-container">
         <div class="product-image-container">
-          <img class="product-image"
-            src="${product.image}">
+          <img class="product-image" src="${product.image}">
         </div>
 
         <div class="product-name limit-text-to-2-lines">
@@ -19,8 +44,7 @@ function renderProductsGrid () {
         </div>
 
         <div class="product-rating-container">
-          <img class="product-rating-stars"
-            src="${product.getStarsUrl()}">
+          <img class="product-rating-stars" src="${product.getStarsUrl()}">
           <div class="product-rating-count link-primary">
             ${product.rating.count}
           </div>
@@ -66,13 +90,11 @@ function renderProductsGrid () {
 
   function updateCartQuantity() {
     let cartQuantity = 0;
-
     cart.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
     });
 
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
   }
 
   document.querySelectorAll('.js-add-to-cart')
@@ -82,5 +104,19 @@ function renderProductsGrid () {
         addToCart(productId);
         updateCartQuantity();
       });
+    });
+    
+  document.querySelector('.js-search-bar')
+    .addEventListener('keydown' , (event) => {
+      if (event.key === 'Enter'){
+        document.querySelector('.js-search-button').click();
+      }
+    });
+
+
+  document.querySelector('.js-search-button')
+    .addEventListener('click', () => {
+      const search = document.querySelector('.js-search-bar').value;
+      window.location.href = `amazon.html?search=${search}`;
     });
 }
