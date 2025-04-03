@@ -72,10 +72,26 @@ export function removeFromCart(productId) {
 }
 
 
+
+export function updateQuantity(productId, newQuantity) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.quantity = newQuantity;
+
+  saveToStorage();
+}
+
+
 export function loadCart (func){
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load' , () => {
-   console.log(xhr.response);
+   
  
   func();
   });
