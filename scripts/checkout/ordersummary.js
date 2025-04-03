@@ -10,6 +10,12 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 
 export function renderOrderSummary (){
 
+  if (cart.length === 0) {
+    document.querySelector('.js-empty-cart-message').style.display = 'block';
+  } else {
+    document.querySelector('.js-empty-cart-message').style.display = 'none';
+  }
+
     let cartSummaryHTML = '';
 
     cart.forEach((cartItem) => {
