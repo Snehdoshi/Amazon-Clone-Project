@@ -237,24 +237,48 @@
 
 .button-primary {
   display: inline-block;
-  padding: 12px 6px;
+  padding: 11px 5px;
   text-decoration: none;
   margin-top: 10px;
 }
-.view-products-link {
+
+.view-button-primary{
   display: inline-block;
   padding: 8px 15px;
   text-decoration: none;
   margin-top: 10px;
-}
-.js-empty-cart-message {
-  border-radius: 40px;
-  padding: 10px;
-  background-color: white;
-  margin-top: 12px;
+  color: rgb(33, 33, 33);
+  background-color: rgb(255, 216, 20);
+  border: 1px solid rgb(252, 210, 0);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
 }
 
-/* Mobile: move below both order summary and payment summary */
+.js-empty-cart-message {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+
+
+/* Desktop: two-column layout */
+@media (min-width: 1001px) {
+  .checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    column-gap: 12px;
+    align-items: start; /* This keeps both columns top-aligned */
+  }
+
+  .js-empty-cart-message {
+    margin-bottom: 12px;
+    text-align: left;
+  }
+}
+
+
+/* Mobile: single-column layout */
 @media (max-width: 1000px) {
   .checkout-grid {
     display: grid;
@@ -266,8 +290,12 @@
     grid-column: 1;
     grid-row: 3;
     text-align: center;
+    margin-top: 0;
   }
 }
+
+
+
 
 .place-order-button:disabled {
   opacity: 0.5;

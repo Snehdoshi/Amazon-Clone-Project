@@ -87,6 +87,11 @@ export function updateQuantity(productId, newQuantity) {
   saveToStorage();
 }
 
+export function clearCart() {
+  cart = [];
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
 
 export function loadCart (func){
   const xhr = new XMLHttpRequest();
