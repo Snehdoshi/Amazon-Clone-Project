@@ -237,16 +237,16 @@
 
 .button-primary {
   display: inline-block;
+  padding: 12px 6px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+.view-products-link {
+  display: inline-block;
   padding: 8px 15px;
   text-decoration: none;
   margin-top: 10px;
 }
-.js-empty-cart-message {
-  border-radius: 40px;
-  padding: 5px;
-  background-color: white;
-}
-
 .js-empty-cart-message {
   border-radius: 40px;
   padding: 10px;
@@ -269,6 +269,8 @@
   }
 }
 
-
-
+.place-order-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
