@@ -96,8 +96,10 @@ function renderProductsGrid() {
       cartQuantity += cartItem.quantity;
     });
 
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartQuantity;
+    document.querySelectorAll('.js-cart-quantity')
+  .forEach((element) => {
+    element.innerHTML = cartQuantity;
+  });
   }
   updateCartQuantity();
   
@@ -146,4 +148,12 @@ function renderProductsGrid() {
       const search = document.querySelector('.js-search-bar').value;
       window.location.href = `amazon.html?search=${search}`;
     });
+
+    document.querySelector('.js-hamburger-icon')
+  .addEventListener('click', () => {
+    const menu = document.querySelector('.js-mobile-menu');
+    menu.classList.toggle('active');
+  });
+
+
 }

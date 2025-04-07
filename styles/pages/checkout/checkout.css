@@ -241,3 +241,34 @@
   text-decoration: none;
   margin-top: 10px;
 }
+.js-empty-cart-message {
+  border-radius: 40px;
+  padding: 5px;
+  background-color: white;
+}
+
+.js-empty-cart-message {
+  border-radius: 40px;
+  padding: 10px;
+  background-color: white;
+  margin-top: 12px;
+}
+
+/* Mobile: move below both order summary and payment summary */
+@media (max-width: 1000px) {
+  .checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
+
+  .js-empty-cart-message {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: center;
+  }
+}
+
+
+
+

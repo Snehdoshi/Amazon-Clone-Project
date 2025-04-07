@@ -3,16 +3,15 @@
   color: white;
   padding-left: 15px;
   padding-right: 15px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 60px;
+  z-index: 100;
 }
 
 .amazon-header-left-section {
@@ -76,8 +75,6 @@
   border: none;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
 }
 
 .search-button {
@@ -139,11 +136,84 @@
   color: rgb(240, 136, 4);
   font-size: 16px;
   font-weight: 700;
-
   position: absolute;
   top: 4px;
   left: 22px;
-  
   width: 26px;
   text-align: center;
+}
+
+.hamburger-icon-container {
+  display: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-icon {
+  display: block;
+  padding: 6px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger-icon-container {
+    display: block;
+  }
+
+  .amazon-header-right-section {
+    display: none;
+  }
+
+  .amazon-header-middle-section {
+    width: 100%;
+    padding: 0;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+}
+
+.mobile-menu {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(19, 25, 33);
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 100%;
+  padding: 0;
+  z-index: 1000;
+}
+.mobile-menu.active {
+  max-height: 200px; /* adjust based on your content */
+  opacity: 1;
+  padding: 16px 0;
+}
+
+.mobile-menu a {
+  color: white;
+  text-align: center;
+  padding: 12px 0;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-menu .js-cart-quantity {
+  color: rgb(240, 136, 4); /* Amazon orange */
+  font-weight: 700;
 }
