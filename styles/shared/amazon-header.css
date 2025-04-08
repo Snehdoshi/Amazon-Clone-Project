@@ -175,26 +175,27 @@
 }
 
 .mobile-menu {
-  overflow: hidden;
+  overflow-y: auto; /* allow scrolling inside the menu */
   max-height: 0;
   opacity: 0;
   transition: max-height 0.4s ease, opacity 0.4s ease;
   display: flex;
   flex-direction: column;
   background-color: rgb(19, 25, 33);
-  position: absolute;
+  position: fixed; /* changed from absolute to fixed */
   top: 60px;
+  left: 0;
   right: 0;
-  width: 100%;
-  padding: 0;
-  z-index: 1000;
-}
-.mobile-menu.active {
-  max-height: 200px; /* adjust based on your content */
-  opacity: 1;
-  padding: 16px 0;
+  z-index: 9999; /* make sure it's above everything */
+  pointer-events: none; /* disable interaction when hidden */
 }
 
+.mobile-menu.active {
+  max-height: 200px;
+  opacity: 1;
+  pointer-events: auto; /* re-enable interaction when visible */
+  padding: 16px 0;
+}
 .mobile-menu a {
   color: white;
   text-align: center;
