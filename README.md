@@ -28,8 +28,6 @@ This is a responsive Amazon Clone website built using **HTML**, **CSS**, and **J
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
----
 
 Feel free to ⭐ the repo if you find it useful!
 
-```
