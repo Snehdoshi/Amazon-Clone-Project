@@ -2,7 +2,7 @@
 
 This is a responsive Amazon Clone website built using **HTML**, **CSS**, and **JavaScript**. It replicates the core design and layout of Amazon's homepage, product listings, cart functionality, and more.
 
-🔗 **Live Site**: [amazon-clone-html-css-js.netlify.app](ecommerce-azn-html-css-js.netlify.app/)
+🔗 **Live Site**: [amazon-clone-html-css-js.netlify.app]([ecommerce-azn-html-css-js.netlify.app/](https://ecommerce-azn-html-css-js.netlify.app/))
 
 ## 🚀 Features
 
